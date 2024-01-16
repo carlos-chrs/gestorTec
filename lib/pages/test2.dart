@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:web_app_tec/utils/screen_size.dart';
 import 'package:web_app_tec/widgets/boton_filtrado.dart';
 import 'package:web_app_tec/widgets/calendar_button.dart';
+import 'package:web_app_tec/widgets/custom_search_tab_bar.dart';
 import 'package:web_app_tec/widgets/search_bar.dart';
 // import 'package:web_app_tec/widgets/input_text.dart';
 import 'package:web_app_tec/widgets/separador_bar.dart';
@@ -24,133 +25,133 @@ class Test2 extends StatelessWidget {
   }
 }
 
-class CustomSearchTab extends StatelessWidget {
-  const CustomSearchTab({
-    required this.heigthFilterButtons,
-    super.key,
-    required this.maxWidthBar,
-    required this.widthFilterButtons,
-  });
-  final double maxWidthBar;
-  //  = 930.0;
-  final double widthFilterButtons;
-  // 140.0;
-  final double heigthFilterButtons;
-  // final _dates;
-  @override
-  Widget build(BuildContext context) {
-    ScreenSize.i.upadate(context);
-    // print(ScreenSize.i.width);
-    return Container(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                ),
-                child: CustomSearchBar(
-                  action: buscarAction,
-                  width: ScreenSize.i.width <= maxWidthBar
-                      ? ScreenSize.i.width * 0.9
-                      : 400,
-                  heigth: heigthFilterButtons,
-                ),
-              ),
-              ScreenSize.i.width > maxWidthBar
-                  ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FilterButtom(
-                        hint: "Asunto",
-                        action: asuntoAction,
-                        width: widthFilterButtons,
-                        heigth: heigthFilterButtons,
-                        icon: const Icon(Icons.book),
-                      ),
-                    )
-                  : const SizedBox(),
-              ScreenSize.i.width > maxWidthBar
-                  ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FilterButtom(
-                        hint: "Dirigido a",
-                        action: dirigidoAAction,
-                        width: widthFilterButtons,
-                        heigth: heigthFilterButtons,
-                        icon: const Icon(Icons.group),
-                      ),
-                    )
-                  : const SizedBox(),
-              ScreenSize.i.width > maxWidthBar
-                  ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CalenarButton(
-                          text: "Fecha",
-                          action: () => calendarAction(context),
-                          width: widthFilterButtons,
-                          heigth: heigthFilterButtons),
-                    )
-                  : const SizedBox(),
-            ],
-          ),
-          ScreenSize.i.width < maxWidthBar
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FilterButtom(
-                        hint: "Asunto",
-                        action: asuntoAction,
-                        width: ScreenSize.i.width * 0.3,
-                        heigth: 50,
-                        icon: const Icon(Icons.book),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FilterButtom(
-                        hint: "Dirigido a",
-                        action: dirigidoAAction,
-                        width: ScreenSize.i.width * 0.3,
-                        heigth: 50,
-                        icon: const Icon(Icons.group),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CalenarButton(
-                          text: "",
-                          action: () => calendarAction(context),
-                          width: 50,
-                          heigth: 50),
-                    ),
-                  ],
-                )
-              : const SizedBox(),
-        ],
-      ),
-    );
-  }
-}
+// class CustomSearchTab extends StatelessWidget {
+//   const CustomSearchTab({
+//     required this.heigthFilterButtons,
+//     super.key,
+//     required this.maxWidthBar,
+//     required this.widthFilterButtons,
+//   });
+//   final double maxWidthBar;
+//   //  = 930.0;
+//   final double widthFilterButtons;
+//   // 140.0;
+//   final double heigthFilterButtons;
+//   // final _dates;
+//   @override
+//   Widget build(BuildContext context) {
+//     ScreenSize.i.upadate(context);
+//     // print(ScreenSize.i.width);
+//     return Container(
+//       child: Column(
+//         children: [
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               Padding(
+//                 padding: const EdgeInsets.symmetric(
+//                   horizontal: 8,
+//                 ),
+//                 child: CustomSearchBar(
+//                   action: buscarAction,
+//                   width: ScreenSize.i.width <= maxWidthBar
+//                       ? ScreenSize.i.width * 0.9
+//                       : 400,
+//                   heigth: heigthFilterButtons,
+//                 ),
+//               ),
+//               ScreenSize.i.width > maxWidthBar
+//                   ? Padding(
+//                       padding: const EdgeInsets.all(8.0),
+//                       child: FilterButtom(
+//                         hint: "Asunto",
+//                         action: asuntoAction,
+//                         width: widthFilterButtons,
+//                         heigth: heigthFilterButtons,
+//                         icon: const Icon(Icons.book),
+//                       ),
+//                     )
+//                   : const SizedBox(),
+//               ScreenSize.i.width > maxWidthBar
+//                   ? Padding(
+//                       padding: const EdgeInsets.all(8.0),
+//                       child: FilterButtom(
+//                         hint: "Dirigido a",
+//                         action: dirigidoAAction,
+//                         width: widthFilterButtons,
+//                         heigth: heigthFilterButtons,
+//                         icon: const Icon(Icons.group),
+//                       ),
+//                     )
+//                   : const SizedBox(),
+//               ScreenSize.i.width > maxWidthBar
+//                   ? Padding(
+//                       padding: const EdgeInsets.all(8.0),
+//                       child: CalenarButton(
+//                           text: "Fecha",
+//                           action: () => calendarAction(context),
+//                           width: widthFilterButtons,
+//                           heigth: heigthFilterButtons),
+//                     )
+//                   : const SizedBox(),
+//             ],
+//           ),
+//           ScreenSize.i.width < maxWidthBar
+//               ? Row(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: [
+//                     Padding(
+//                       padding: const EdgeInsets.all(8.0),
+//                       child: FilterButtom(
+//                         hint: "Asunto",
+//                         action: asuntoAction,
+//                         width: ScreenSize.i.width * 0.3,
+//                         heigth: 50,
+//                         icon: const Icon(Icons.book),
+//                       ),
+//                     ),
+//                     Padding(
+//                       padding: const EdgeInsets.all(8.0),
+//                       child: FilterButtom(
+//                         hint: "Dirigido a",
+//                         action: dirigidoAAction,
+//                         width: ScreenSize.i.width * 0.3,
+//                         heigth: 50,
+//                         icon: const Icon(Icons.group),
+//                       ),
+//                     ),
+//                     Padding(
+//                       padding: const EdgeInsets.all(8.0),
+//                       child: CalenarButton(
+//                           text: "",
+//                           action: () => calendarAction(context),
+//                           width: 50,
+//                           heigth: 50),
+//                     ),
+//                   ],
+//                 )
+//               : const SizedBox(),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
-void asuntoAction() {}
-void dirigidoAAction() {}
+// void asuntoAction() {}
+// void dirigidoAAction() {}
 
-void buscarAction() {}
+// void buscarAction() {}
 
-Future<void> calendarAction(BuildContext context) async {
-  List<DateTime?> _dates = [];
-  var results = await showCalendarDatePicker2Dialog(
-    context: context,
-    config: CalendarDatePicker2WithActionButtonsConfig(),
-    dialogSize: const Size(325, 400),
-    value: _dates,
-    borderRadius: BorderRadius.circular(15),
-  );
+// Future<void> calendarAction(BuildContext context) async {
+//   List<DateTime?> _dates = [];
+//   var results = await showCalendarDatePicker2Dialog(
+//     context: context,
+//     config: CalendarDatePicker2WithActionButtonsConfig(),
+//     dialogSize: const Size(325, 400),
+//     value: _dates,
+//     borderRadius: BorderRadius.circular(15),
+//   );
 
-  print(results);
-  print(_dates);
-}
+//   print(results);
+//   print(_dates);
+// }

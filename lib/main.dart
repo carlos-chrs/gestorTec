@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:web_app_tec/pages/crear_documento_page.dart';
+import 'package:web_app_tec/pages/historial_ocumentos_usuario.dart';
 
 import 'package:web_app_tec/pages/inicio_usuario.dart';
+import 'package:web_app_tec/pages/login.dart';
 // import 'package:web_app_tec/pages/inicio_usuario.dart';
 // import 'package:web_app_tec/pages/login.dart';
 import 'package:web_app_tec/pages/test2.dart';
 import 'package:web_app_tec/pages/test_widgets.dart';
+import 'package:web_app_tec/pages/ver_documento_page.dart';
 // import 'package:web_app_tec/pages/test_widgets.dart';
 
 void main() {
@@ -26,7 +30,7 @@ class MyApp extends StatelessWidget {
               displayMedium: TextStyle(
             fontSize: 18,
           ))),
-      home: Test2(),
+      home: VerDocumentoPage(),
     );
   }
 }

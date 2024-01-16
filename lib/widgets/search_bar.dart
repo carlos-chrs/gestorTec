@@ -35,6 +35,7 @@ class CustomSearchBar extends StatelessWidget {
             child: SizedBox(
               width: width - 80,
               child: TextFormField(
+                onEditingComplete: () => print("complete"),
                 decoration: const InputDecoration.collapsed(
                   hintText: "Buscar...",
                   hintStyle: TextStyle(color: Colors.black54, fontSize: 18),
