@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:web_app_tec/utils/screen_size.dart';
 import 'package:web_app_tec/widgets/custombuttom.dart';
 import 'package:web_app_tec/widgets/document_miniatura.dart';
+import 'package:web_app_tec/widgets/popup_menu.dart';
 import 'package:web_app_tec/widgets/separador_bar.dart';
 import 'package:web_app_tec/widgets/title_bar.dart';
 
@@ -15,12 +17,7 @@ class InicioUsuario extends StatelessWidget {
       body: ListView(
         children: [
           TitleBar(
-            menu: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.arrow_drop_down_sharp,
-              ),
-            ),
+            menu: PopupMenu(),
             nombreUsuario: 'Danny Chavez',
             puesto: 'jefe de departamento de sistemas',
           ),
@@ -37,7 +34,9 @@ class InicioUsuario extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 60.0, horizontal: 8.0),
                     child: CustomButtom(
-                      action: () {},
+                      action: () {
+                        context.go("/crear_documento");
+                      },
                       text: 'Nuevo Documento \n Direccion',
                     ),
                   ),
@@ -45,7 +44,9 @@ class InicioUsuario extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 60.0, horizontal: 8.0),
                     child: CustomButtom(
-                      action: () {},
+                      action: () {
+                        context.go("/crear_documento");
+                      },
                       text: 'Nuevo Documento \n Departamento',
                     ),
                   ),

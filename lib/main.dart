@@ -9,6 +9,7 @@ import 'package:web_app_tec/pages/login.dart';
 import 'package:web_app_tec/pages/test2.dart';
 import 'package:web_app_tec/pages/test_widgets.dart';
 import 'package:web_app_tec/pages/ver_documento_page.dart';
+import 'package:web_app_tec/utils/router.dart';
 // import 'package:web_app_tec/pages/test_widgets.dart';
 
 void main() {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
               displayMedium: TextStyle(
             fontSize: 18,
           ))),
-      home: VerDocumentoPage(),
+      routerConfig: getRouter(),
     );
   }
 }
