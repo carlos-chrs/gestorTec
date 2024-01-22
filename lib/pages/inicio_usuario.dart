@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:web_app_tec/prividers/login_provider.dart';
 import 'package:web_app_tec/utils/screen_size.dart';
 import 'package:web_app_tec/widgets/custombuttom.dart';
 import 'package:web_app_tec/widgets/document_miniatura.dart';
@@ -12,11 +14,15 @@ class InicioUsuario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (!context.watch<LoginProvider>().isLogin) {
+      context.go("/login");
+    }
     ScreenSize.i.upadate(context);
+
     return Scaffold(
       body: ListView(
         children: [
-          TitleBar(
+          const TitleBar(
             menu: PopupMenu(),
             nombreUsuario: 'Danny Chavez',
             puesto: 'jefe de departamento de sistemas',

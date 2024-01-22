@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:web_app_tec/utils/screen_size.dart';
 
 class TitleBar extends StatelessWidget {
@@ -30,30 +31,52 @@ class TitleBar extends StatelessWidget {
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: ScreenSize.i.width > 700 ? Text(puesto) : const SizedBox(),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child:
-                ScreenSize.i.width > 700 ? const Text("-") : const SizedBox(),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(
-              nombreUsuario,
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w100),
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: IconButton(
+                icon: const Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [Icon(Icons.home_outlined), Text("")],
+                ),
+                onPressed: () {
+                  context.go("/");
+                },
+              ),
             ),
           ),
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: menu),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child:
+                    ScreenSize.i.width > 700 ? Text(puesto) : const SizedBox(),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: ScreenSize.i.width > 700
+                    ? const Text("-")
+                    : const SizedBox(),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  nombreUsuario,
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w100),
+                ),
+              ),
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: menu),
+            ],
+          ),
         ],
       ),
     );

@@ -1,4 +1,4 @@
-import 'package:supabase/supabase.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseCRUD {
   final SupabaseClient supabase;
@@ -14,13 +14,6 @@ class SupabaseCRUD {
   }
 
   // Obtener un documento
-  Future<Map<String, dynamic>?> getDocument(String table, String id) async {
-    final response = await supabase.from(table).select().eq('id', id);
-    if (response.error != null) {
-      throw Exception(response.error!.message);
-    }
-    return response.data?.first;
-  }
 
   // Actualizar un documento
   Future<void> updateDocument(

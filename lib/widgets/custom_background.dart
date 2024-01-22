@@ -1,35 +1,38 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class CustomBackground extends StatelessWidget {
-  CustomBackground({super.key, required this.child});
-  Widget child;
-  @override
-  Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: BackgroundPainter(),
-      child: Container(child: child),
-    );
-  }
-}
+// class CustomBackground extends StatelessWidget {
+//   const CustomBackground({super.key, required this.child});
+//   final Widget child;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: double.infinity,
+//       height: double.infinity,
+//       child: CustomPaint(
+//         foregroundPainter: BackgroundPainter(),
+//         child: Container(child: child),
+//       ),
+//     );
+//   }
+// }
 
-class BackgroundPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.blue // Color de las figuras geométricas
-      ..style = PaintingStyle.fill;
+// class BackgroundPainter extends CustomPainter {
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     final paint = Paint()
+//       ..color = Colors.white // Color de las figuras geométricas
+//       ..style = PaintingStyle.fill;
 
-    // Dibujar un rectángulo
-    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paint);
+//     // Dibujar un rectángulo
+//     // canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), paint);
+//     canvas.drawColor(Colors.white, BlendMode.color);
 
-    // Dibujar un círculo
-    canvas.drawCircle(Offset(size.width / 2, size.height / 2), 50, paint);
+//     // Dibujar un círculo
+//     // Puedes agregar más figuras geométricas según tus necesidades
+//   }
 
-    // Puedes agregar más figuras geométricas según tus necesidades
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
-}
+//   @override
+//   bool shouldRepaint(covariant CustomPainter oldDelegate) {
+//     return false;
+//   }
+// }

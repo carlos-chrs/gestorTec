@@ -10,8 +10,8 @@ class BlurredBackground extends StatelessWidget {
   const BlurredBackground({
     Key? key,
     required this.child,
-    this.backgroundColor = const Color.fromARGB(176, 226, 226, 226),
-    this.blurIntensity = 5.0,
+    this.backgroundColor = const Color.fromARGB(255, 226, 226, 226),
+    this.blurIntensity = 10.0,
   }) : super(key: key);
 
   @override

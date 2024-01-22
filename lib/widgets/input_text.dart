@@ -3,7 +3,9 @@ import 'package:web_app_tec/utils/screen_size.dart';
 
 class InputText extends StatelessWidget {
   final String hintText;
-  const InputText({Key? key, required this.hintText}) : super(key: key);
+  final TextEditingController? textController;
+  InputText({Key? key, required this.hintText, required this.textController})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,8 @@ class InputText extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
+            controller: textController,
+            autofocus: true,
             decoration: InputDecoration.collapsed(
               hintText: hintText,
               hintStyle: const TextStyle(color: Colors.black54, fontSize: 18),

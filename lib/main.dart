@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:web_app_tec/pages/crear_documento_page.dart';
-import 'package:web_app_tec/pages/historial_ocumentos_usuario.dart';
-
-import 'package:web_app_tec/pages/inicio_usuario.dart';
-import 'package:web_app_tec/pages/login.dart';
-// import 'package:web_app_tec/pages/inicio_usuario.dart';
-// import 'package:web_app_tec/pages/login.dart';
-import 'package:web_app_tec/pages/test2.dart';
-import 'package:web_app_tec/pages/test_widgets.dart';
-import 'package:web_app_tec/pages/ver_documento_page.dart';
+import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:web_app_tec/prividers/login_provider.dart';
 import 'package:web_app_tec/utils/router.dart';
-// import 'package:web_app_tec/pages/test_widgets.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  await Supabase.initialize(
+    url: 'https://ldqahmgngmrovptxuddh.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxkcWFobWduZ21yb3ZwdHh1ZGRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTk0NzAyNDgsImV4cCI6MjAxNTA0NjI0OH0.MTYbTyYb3gh0JTUb75sHcKTo2BpDPSSuEchVeRs0KX8',
+  );
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => LoginProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -25,13 +31,15 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent[700]!),
-          useMaterial3: true,
-          textTheme: const TextTheme(
-              displayMedium: TextStyle(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent[700]!),
+        useMaterial3: true,
+        textTheme: const TextTheme(
+          displayMedium: TextStyle(
             fontSize: 18,
-          ))),
-      routerConfig: getRouter(),
+          ),
+        ),
+      ),
+      routerConfig: getRouter(context),
     );
   }
 }
