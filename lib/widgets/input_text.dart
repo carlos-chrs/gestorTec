@@ -4,7 +4,8 @@ import 'package:web_app_tec/utils/screen_size.dart';
 class InputText extends StatelessWidget {
   final String hintText;
   final TextEditingController? textController;
-  InputText({Key? key, required this.hintText, required this.textController})
+  const InputText(
+      {Key? key, required this.hintText, required this.textController})
       : super(key: key);
 
   @override

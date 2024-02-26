@@ -6,8 +6,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:web_app_tec/prividers/login_provider.dart';
 import 'package:web_app_tec/utils/screen_size.dart';
 import 'package:web_app_tec/widgets/background_painter.dart';
-import 'package:web_app_tec/widgets/blured_background.dart';
-import 'package:web_app_tec/widgets/custom_background.dart';
 import 'package:web_app_tec/widgets/input_text.dart';
 import 'package:web_app_tec/widgets/password_field.dart';
 
@@ -93,8 +91,6 @@ class LoginPage extends StatelessWidget {
                           height: 50,
                           child: FilledButton(
                             onPressed: () async {
-                              print(userTextController.text);
-                              print(passTextController.text);
                               // TODO: revisar conexion con la base de datos
                               final supabase = Supabase.instance.client;
                               try {
@@ -103,7 +99,7 @@ class LoginPage extends StatelessWidget {
                                   password: passTextController.text,
                                 );
                               } catch (e) {
-                                print(e);
+                                // print(e);
                                 const snackBar = SnackBar(
                                   content: Center(
                                     child: Text(
@@ -156,5 +152,31 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     ));
+  }
+
+  void enter(BuildContext context) async {
+    // TODO: revisar conexion con la base de datos
+    final supabase = Supabase.instance.client;
+    try {
+      await supabase.auth.signInWithPassword(
+        email: userTextController.text,
+        password: passTextController.text,
+      );
+    } catch (e) {
+      // print(e);
+      const snackBar = SnackBar(
+        content: Center(
+          child: Text(
+              "Problemas de inicio de sesión. verifique sus datos e intente de nuevo"),
+        ),
+        backgroundColor: Colors.red,
+        duration: Duration(seconds: 3),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+    final session = supabase.auth.currentSession;
+    final isSessionExpired = session?.isExpired;
+    if (isSessionExpired != null || isSessionExpired == false)
+      context.read<LoginProvider>().login(true);
   }
 }

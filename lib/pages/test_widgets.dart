@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:web_app_tec/widgets/cuadro_info_document.dart';
-import 'package:web_app_tec/widgets/custombuttom.dart';
 
 class TestWidget extends StatelessWidget {
   const TestWidget({Key? key}) : super(key: key);

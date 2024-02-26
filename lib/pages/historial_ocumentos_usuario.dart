@@ -1,7 +1,4 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:web_app_tec/pages/test_widgets.dart';
 import 'package:web_app_tec/utils/screen_size.dart';
 import 'package:web_app_tec/widgets/cuadro_info_document.dart';
 import 'package:web_app_tec/widgets/custom_search_tab_bar.dart';
@@ -15,7 +12,7 @@ class HistorialDocumentosUsuarios extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenSize.i.upadate(context);
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: ScreenSize.i.heigth,
         child: SingleChildScrollView(
           child: Column(
@@ -37,7 +34,7 @@ class HistorialDocumentosUsuarios extends StatelessWidget {
                   widthFilterButtons: 150,
                 ),
               ),
-              Container(
+              SizedBox(
                 width: ScreenSize.i.width,
                 child: Row(
                   children: [
@@ -48,7 +45,7 @@ class HistorialDocumentosUsuarios extends StatelessWidget {
                               heigth: ScreenSize.i.heigth * 0.7,
                               width: 250,
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                     ),
                     CustomTable(
                       heigth: ScreenSize.i.heigth * 0.7,

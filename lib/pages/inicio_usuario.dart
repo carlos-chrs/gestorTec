@@ -75,7 +75,7 @@ class InicioUsuario extends StatelessWidget {
               child: const Text("ver mas"),
             ),
           ),
-          Container(
+          SizedBox(
             width: ScreenSize.i.width,
             height: 200,
             child: ListView.builder(
@@ -96,7 +96,7 @@ class InicioUsuario extends StatelessWidget {
               child: const Text("ver mas"),
             ),
           ),
-          Container(
+          SizedBox(
             width: ScreenSize.i.width,
             height: 200,
             child: ListView.builder(

@@ -53,13 +53,26 @@ class TitleBar extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child:
-                    ScreenSize.i.width > 700 ? Text(puesto) : const SizedBox(),
+                child: ScreenSize.i.width > 700
+                    ? Text(
+                        puesto,
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w100),
+                      )
+                    : const SizedBox(),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: ScreenSize.i.width > 700
-                    ? const Text("-")
+                    ? const Text(
+                        "-",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w100),
+                      )
                     : const SizedBox(),
               ),
               Padding(

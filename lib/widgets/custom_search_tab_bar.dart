@@ -22,97 +22,95 @@ class CustomSearchTab extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenSize.i.upadate(context);
     // print(ScreenSize.i.width);
-    return Container(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                ),
-                child: CustomSearchBar(
-                  action: buscarAction,
-                  width: ScreenSize.i.width <= maxWidthBar
-                      ? ScreenSize.i.width * 0.9
-                      : 400,
-                  heigth: heigthFilterButtons,
-                ),
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
               ),
-              ScreenSize.i.width > maxWidthBar
-                  ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FilterButtom(
-                        hint: "Asunto",
-                        action: asuntoAction,
+              child: CustomSearchBar(
+                action: buscarAction,
+                width: ScreenSize.i.width <= maxWidthBar
+                    ? ScreenSize.i.width * 0.9
+                    : 400,
+                heigth: heigthFilterButtons,
+              ),
+            ),
+            ScreenSize.i.width > maxWidthBar
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FilterButtom(
+                      hint: "Asunto",
+                      action: asuntoAction,
+                      width: widthFilterButtons,
+                      heigth: heigthFilterButtons,
+                      icon: const Icon(Icons.book),
+                    ),
+                  )
+                : const SizedBox(),
+            ScreenSize.i.width > maxWidthBar
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FilterButtom(
+                      hint: "Dirigido a",
+                      action: dirigidoAAction,
+                      width: widthFilterButtons,
+                      heigth: heigthFilterButtons,
+                      icon: const Icon(Icons.group),
+                    ),
+                  )
+                : const SizedBox(),
+            ScreenSize.i.width > maxWidthBar
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CalenarButton(
+                        text: "Fecha",
+                        action: () => calendarAction(context),
                         width: widthFilterButtons,
-                        heigth: heigthFilterButtons,
-                        icon: const Icon(Icons.book),
-                      ),
-                    )
-                  : const SizedBox(),
-              ScreenSize.i.width > maxWidthBar
-                  ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FilterButtom(
-                        hint: "Dirigido a",
-                        action: dirigidoAAction,
-                        width: widthFilterButtons,
-                        heigth: heigthFilterButtons,
-                        icon: const Icon(Icons.group),
-                      ),
-                    )
-                  : const SizedBox(),
-              ScreenSize.i.width > maxWidthBar
-                  ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CalenarButton(
-                          text: "Fecha",
-                          action: () => calendarAction(context),
-                          width: widthFilterButtons,
-                          heigth: heigthFilterButtons),
-                    )
-                  : const SizedBox(),
-            ],
-          ),
-          ScreenSize.i.width < maxWidthBar
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FilterButtom(
-                        hint: "Asunto",
-                        action: asuntoAction,
-                        width: ScreenSize.i.width * 0.3,
-                        heigth: 50,
-                        icon: const Icon(Icons.book),
-                      ),
+                        heigth: heigthFilterButtons),
+                  )
+                : const SizedBox(),
+          ],
+        ),
+        ScreenSize.i.width < maxWidthBar
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FilterButtom(
+                      hint: "Asunto",
+                      action: asuntoAction,
+                      width: ScreenSize.i.width * 0.3,
+                      heigth: 50,
+                      icon: const Icon(Icons.book),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FilterButtom(
-                        hint: "Dirigido a",
-                        action: dirigidoAAction,
-                        width: ScreenSize.i.width * 0.3,
-                        heigth: 50,
-                        icon: const Icon(Icons.group),
-                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FilterButtom(
+                      hint: "Dirigido a",
+                      action: dirigidoAAction,
+                      width: ScreenSize.i.width * 0.3,
+                      heigth: 50,
+                      icon: const Icon(Icons.group),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CalenarButton(
-                          text: "",
-                          action: () => calendarAction(context),
-                          width: 50,
-                          heigth: 50),
-                    ),
-                  ],
-                )
-              : const SizedBox(),
-        ],
-      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CalenarButton(
+                        text: "",
+                        action: () => calendarAction(context),
+                        width: 50,
+                        heigth: 50),
+                  ),
+                ],
+              )
+            : const SizedBox(),
+      ],
     );
   }
 }
@@ -131,7 +129,4 @@ Future<void> calendarAction(BuildContext context) async {
     value: dates,
     borderRadius: BorderRadius.circular(15),
   );
-
-  print(results);
-  print(dates);
 }

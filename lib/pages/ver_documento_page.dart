@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:web_app_tec/utils/crear_pdf_web.dart';
@@ -9,12 +7,10 @@ class VerDocumentoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: TextButton(
-          onPressed: () => _createPDF(),
-          child: Text('ver documento'),
-        ),
+    return Center(
+      child: TextButton(
+        onPressed: () => _createPDF(),
+        child: const Text('ver documento'),
       ),
     );
   }
@@ -32,8 +28,8 @@ class VerDocumentoPage extends StatelessWidget {
     saveAndLaunchFile(bytes, 'Output.pdf');
   }
 
-  Future<Uint8List> _readImageData(String name) async {
-    final data = await rootBundle.load('images/$name');
-    return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-  }
+  // Future<Uint8List> _readImageData(String name) async {
+  //   final data = await rootBundle.load('images/$name');
+  //   return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+  // }
 }

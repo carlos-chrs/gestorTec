@@ -7,8 +7,8 @@ class BackgroundPainter extends CustomPainter {
     double alto = size.height;
 
     final paint = Paint()
-      ..color =
-          Color.fromARGB(255, 12, 14, 81) // Color de las figuras geométricas
+      ..color = const Color.fromARGB(
+          255, 12, 14, 81) // Color de las figuras geométricas
       ..style = PaintingStyle.fill;
     final path = Path()
       ..moveTo(0, alto)

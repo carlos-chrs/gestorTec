@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:web_app_tec/prividers/content_document_provider.dart';
 import 'package:web_app_tec/prividers/login_provider.dart';
 import 'package:web_app_tec/utils/router.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
     url: 'https://ldqahmgngmrovptxuddh.supabase.co',
     anonKey:
@@ -15,6 +17,9 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(
           create: (_) => LoginProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ContenidoDocumentoProvider(),
         ),
       ],
       child: const MyApp(),
