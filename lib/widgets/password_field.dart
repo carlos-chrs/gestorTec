@@ -7,9 +7,11 @@ class PasswordField extends StatefulWidget {
   final bool obscureText;
   final IconData visibilityIcon;
   final IconData visibilityOffIcon;
+  final VoidCallback onEnter;
 
   const PasswordField({
     Key? key,
+    required this.onEnter,
     required this.controller,
     required this.labelText,
     this.obscureText = true,
@@ -49,6 +51,7 @@ class _PasswordFieldState extends State<PasswordField> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: TextFormField(
+            onEditingComplete: widget.onEnter,
             controller: widget.controller,
             obscureText: _obscureText,
             decoration: InputDecoration(

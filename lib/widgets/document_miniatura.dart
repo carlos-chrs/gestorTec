@@ -3,8 +3,15 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class MiniaturaDocumento extends StatelessWidget {
-  const MiniaturaDocumento({Key? key}) : super(key: key);
-
+  MiniaturaDocumento({
+    Key? key,
+    required this.asunto,
+    required this.departameto,
+    required this.fecha,
+  }) : super(key: key);
+  String asunto;
+  String departameto;
+  String fecha;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,18 +36,19 @@ class MiniaturaDocumento extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const Text("Solicitud de..."),
+          Text(asunto),
           Container(
             width: double.infinity,
-            height: 30,
+            height: 60,
             color: Color.fromRGBO(Random().nextInt(150), Random().nextInt(150),
                 Random().nextInt(150), 1),
-            child: const Center(
+            child: Center(
                 child: Text(
-              "Direccion",
+              departameto,
               style: TextStyle(color: Colors.white),
             )),
           ),
+          Text(fecha),
         ],
       ),
     );

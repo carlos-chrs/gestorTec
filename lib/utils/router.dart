@@ -13,7 +13,7 @@ import 'package:web_app_tec/prividers/login_provider.dart';
 import 'package:web_app_tec/widgets/input_text.dart';
 
 getRouter(BuildContext context) {
-  bool login = context.watch<LoginProvider>().isLogin;
+  bool login = context.watch<LoginProvider>().authenticated;
 
   final GoRouter router = GoRouter(
     redirect: (BuildContext context, GoRouterState state) {

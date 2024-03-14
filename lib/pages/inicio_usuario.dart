@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:universal_html/html.dart';
+import 'package:web_app_tec/models/documento_model.dart';
 import 'package:web_app_tec/prividers/login_provider.dart';
+import 'package:web_app_tec/services/documentos_service.dart';
 import 'package:web_app_tec/utils/screen_size.dart';
 import 'package:web_app_tec/widgets/custombuttom.dart';
 import 'package:web_app_tec/widgets/document_miniatura.dart';
@@ -14,7 +17,7 @@ class InicioUsuario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!context.watch<LoginProvider>().isLogin) {
+    if (!context.watch<LoginProvider>().authenticated) {
       context.go("/login");
     }
     ScreenSize.i.upadate(context);
@@ -78,14 +81,35 @@ class InicioUsuario extends StatelessWidget {
           SizedBox(
             width: ScreenSize.i.width,
             height: 200,
-            child: ListView.builder(
-              itemCount: 10,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) {
-                return const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
-                  child: MiniaturaDocumento(),
-                );
+            child: FutureBuilder<List<DocumentModel>>(
+              future: DocumentService.getAllDocuments(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else {
+                  // Aquí puedes utilizar los datos obtenidos
+                  List<DocumentModel> documents = snapshot.data!;
+                  // Por ejemplo, podrías construir un ListView con los documentos
+                  return SizedBox(
+                    width: ScreenSize.i.width - 10,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: MiniaturaDocumento(
+                            asunto: documents[index].asunto!,
+                            fecha: documents[index].fecha!,
+                            departameto: documents[index].departamento!,
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                }
               },
             ),
           ),
@@ -103,9 +127,14 @@ class InicioUsuario extends StatelessWidget {
               itemCount: 10,
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
-                return const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
-                  child: MiniaturaDocumento(),
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
+                  child: MiniaturaDocumento(
+                    asunto: "asunto",
+                    fecha: "12/12/1122",
+                    departameto: "departamento",
+                  ),
                 );
               },
             ),

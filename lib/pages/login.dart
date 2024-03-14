@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:web_app_tec/prividers/login_provider.dart';
+import 'package:web_app_tec/services/login_service.dart';
 import 'package:web_app_tec/utils/screen_size.dart';
 import 'package:web_app_tec/widgets/background_painter.dart';
 import 'package:web_app_tec/widgets/input_text.dart';
@@ -78,6 +78,7 @@ class LoginPage extends StatelessWidget {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8.0),
                               child: PasswordField(
+                                  onEnter: () => enter(context),
                                   controller: passTextController,
                                   labelText: "Ingrese su contraseña."),
                             ),
@@ -90,33 +91,7 @@ class LoginPage extends StatelessWidget {
                           width: ScreenSize.i.width < 600 ? 250 : 350,
                           height: 50,
                           child: FilledButton(
-                            onPressed: () async {
-                              // TODO: revisar conexion con la base de datos
-                              final supabase = Supabase.instance.client;
-                              try {
-                                await supabase.auth.signInWithPassword(
-                                  email: userTextController.text,
-                                  password: passTextController.text,
-                                );
-                              } catch (e) {
-                                // print(e);
-                                const snackBar = SnackBar(
-                                  content: Center(
-                                    child: Text(
-                                        "Problemas de inicio de sesión. verifique sus datos e intente de nuevo"),
-                                  ),
-                                  backgroundColor: Colors.red,
-                                  duration: Duration(seconds: 3),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                              }
-                              final session = supabase.auth.currentSession;
-                              final isSessionExpired = session?.isExpired;
-                              if (isSessionExpired != null ||
-                                  isSessionExpired == false)
-                                context.read<LoginProvider>().login(true);
-                            },
+                            onPressed: () => enter(context),
                             child: const Text(
                               'Iniciar sesión',
                               style: TextStyle(
@@ -155,28 +130,31 @@ class LoginPage extends StatelessWidget {
   }
 
   void enter(BuildContext context) async {
-    // TODO: revisar conexion con la base de datos
-    final supabase = Supabase.instance.client;
-    try {
-      await supabase.auth.signInWithPassword(
-        email: userTextController.text,
-        password: passTextController.text,
-      );
-    } catch (e) {
-      // print(e);
-      const snackBar = SnackBar(
-        content: Center(
-          child: Text(
-              "Problemas de inicio de sesión. verifique sus datos e intente de nuevo"),
-        ),
-        backgroundColor: Colors.red,
-        duration: Duration(seconds: 3),
-      );
+    const snackBar = SnackBar(
+      content: Center(
+        child: Text(
+            "Problemas de inicio de sesión. verifique sus datos e intente de nuevo"),
+      ),
+      backgroundColor: Colors.red,
+      duration: Duration(seconds: 3),
+    );
+
+    String? user = userTextController.text;
+    String? pass = passTextController.text;
+    if (user == null || pass == null || user == "" || pass == "") {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
-    final session = supabase.auth.currentSession;
-    final isSessionExpired = session?.isExpired;
-    if (isSessionExpired != null || isSessionExpired == false)
-      context.read<LoginProvider>().login(true);
+    String? token;
+    final aunth = LoginAunth();
+
+    try {
+      token =
+          await aunth.login(userTextController.text, passTextController.text);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+    if (token != null) {
+      context.read<LoginProvider>().updateToken(token);
+    }
   }
 }

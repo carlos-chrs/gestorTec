@@ -1,34 +1,21 @@
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:web_app_tec/models/documento_model.dart';
 
-class SupabaseCRUD {
-  final SupabaseClient supabase;
+class DocumentService {
+  static const String _baseUrl = 'http://localhost:3000/api/v1/document/';
 
-  SupabaseCRUD({required this.supabase});
-
-  // Insertar un documento
-  Future<void> insertDocument(String table, Map<String, dynamic> data) async {
-    final response = await supabase.from(table).insert(data);
-    if (response.error != null) {
-      throw Exception(response.error!.message);
-    }
-  }
-
-  // Obtener un documento
-
-  // Actualizar un documento
-  Future<void> updateDocument(
-      String table, String id, Map<String, dynamic> data) async {
-    final response = await supabase.from(table).update(data).eq('id', id);
-    if (response.error != null) {
-      throw Exception(response.error!.message);
-    }
-  }
-
-  // Eliminar un documento
-  Future<void> deleteDocument(String table, String id) async {
-    final response = await supabase.from(table).delete().eq('id', id);
-    if (response.error != null) {
-      throw Exception(response.error!.message);
+  static Future<List<DocumentModel>> getAllDocuments() async {
+    final url = Uri.parse('$_baseUrl/get');
+    final response = await http.get(url);
+    // print("response: $response");
+    if (response.statusCode == 200) {
+      // Si la solicitud es exitosa, convierte la respuesta JSON en una lista de DocumentModel
+      final List<dynamic> jsonList = json.decode(response.body);
+      return jsonList.map((e) => DocumentModel.fromJson(e)).toList();
+    } else {
+      // Si la solicitud falla, lanza una excepción o maneja el error de alguna manera
+      throw Exception('error al cargar documentos');
     }
   }
 }

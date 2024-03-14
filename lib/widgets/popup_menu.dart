@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:web_app_tec/prividers/login_provider.dart';
 
 enum Items { config, salir }
@@ -17,9 +16,7 @@ class PopupMenu extends StatelessWidget {
       onSelected: (Items item) async {
         // print(item);
         if (item == Items.salir) {
-          final supabase = Supabase.instance.client;
-          await supabase.auth.signOut();
-          context.read<LoginProvider>().login(false);
+          context.read<LoginProvider>().logout();
 
           //TODO: cerrar sesion en el backend
         }
