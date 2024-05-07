@@ -91,15 +91,22 @@ class LoginPage extends StatelessWidget {
                           width: ScreenSize.i.width < 600 ? 250 : 350,
                           height: 50,
                           child: FilledButton(
-                            onPressed: () => enter(context),
-                            child: const Text(
-                              'Iniciar sesión',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
+                              onPressed: () => enter(context),
+                              child:
+                                  // context.watch<LoginProvider>().loading == false ?
+                                  const Text(
+                                'Iniciar sesión',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              )
+                              // :  CircularProgressIndicator(
+                              //     backgroundColor: Colors.white,
+                              //     strokeWidth: 10,
+                              //     value: null,
+                              //   ),
                               ),
-                            ),
-                          ),
                         ),
                         const SizedBox(
                           height: 30,
@@ -141,20 +148,13 @@ class LoginPage extends StatelessWidget {
 
     String? user = userTextController.text;
     String? pass = passTextController.text;
-    if (user == null || pass == null || user == "" || pass == "") {
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-    String? token;
-    final aunth = LoginAunth();
+    // String? flag;
 
-    try {
-      token =
-          await aunth.login(userTextController.text, passTextController.text);
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-    if (token != null) {
-      context.read<LoginProvider>().updateToken(token);
+    if (user != "" && pass != "") {
+      context.read<LoginProvider>().login(user, pass).then((value) => {
+            if (value == null)
+              {ScaffoldMessenger.of(context).showSnackBar(snackBar)}
+          });
     }
   }
 }

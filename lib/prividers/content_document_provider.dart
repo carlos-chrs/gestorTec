@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
+import 'package:quill_html_editor/quill_html_editor.dart';
 import 'package:web_app_tec/models/campo_documento_model.dart';
 
 class ContenidoDocumentoProvider with ChangeNotifier {
@@ -44,7 +45,7 @@ class ContenidoDocumentoProvider with ChangeNotifier {
         nombreDeCampo: 'Cuerpo',
         formato: "formato",
         textoEnriquesido: true,
-        htmlController: HtmlEditorController(),
+        htmlController: QuillEditorController(),
         alineacion: Alineacion.derecha,
         label: "escriba el cuerpo del documento",
         key: const Key('Cuerpo'),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_app_tec/prividers/content_document_provider.dart';
 import 'package:web_app_tec/prividers/login_provider.dart';
-import 'package:web_app_tec/utils/router.dart';
+import 'package:web_app_tec/router/router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -17,8 +17,6 @@ class PopupMenu extends StatelessWidget {
         // print(item);
         if (item == Items.salir) {
           context.read<LoginProvider>().logout();
-
-          //TODO: cerrar sesion en el backend
         }
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<Items>>[

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
+import 'package:quill_html_editor/quill_html_editor.dart';
 
 enum Alineacion { izquierda, derecha, centrado, justificado }
 
@@ -19,7 +20,7 @@ class CampoDeDocumento {
       required this.key});
   String nombreDeCampo;
   Alineacion alineacion;
-  HtmlEditorController? htmlController;
+  QuillEditorController? htmlController;
   bool textoEnriquesido;
   TextEditingController? controller;
   String formato;

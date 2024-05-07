@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:universal_html/html.dart';
 import 'package:web_app_tec/models/documento_model.dart';
 import 'package:web_app_tec/prividers/login_provider.dart';
 import 'package:web_app_tec/services/documentos_service.dart';
@@ -89,9 +88,7 @@ class InicioUsuario extends StatelessWidget {
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else {
-                  // Aquí puedes utilizar los datos obtenidos
                   List<DocumentModel> documents = snapshot.data!;
-                  // Por ejemplo, podrías construir un ListView con los documentos
                   return SizedBox(
                     width: ScreenSize.i.width - 10,
                     child: ListView.builder(

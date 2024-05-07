@@ -1,37 +1,33 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:quill_html_editor/quill_html_editor.dart';
 
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   runApp(const MaterialApp(debugShowCheckedModeBanner: false, home: Test2()));
-// }
-
-class Test2 extends StatefulWidget {
-  const Test2({super.key});
-
+class CustomTextEditor extends StatefulWidget {
+  CustomTextEditor({super.key, required this.controller, required this.alto});
+  QuillEditorController controller;
+  double alto;
   @override
-  State<Test2> createState() => _Test2State();
+  State<CustomTextEditor> createState() => _CustomTextEditorState();
 }
 
-class _Test2State extends State<Test2> {
-  ///[controller] create a QuillEditorController to access the editor methods
-  late QuillEditorController controller;
-
-  ///[customToolBarList] pass the custom toolbarList to show only selected styles in the editor
-
+class _CustomTextEditorState extends State<CustomTextEditor> {
+  // controller = widget.controller;
   final customToolBarList = [
+    ToolBarStyle.clean,
+    ToolBarStyle.undo,
+    ToolBarStyle.redo,
+    ToolBarStyle.separator,
     ToolBarStyle.bold,
     ToolBarStyle.italic,
     ToolBarStyle.underline,
     ToolBarStyle.align,
-    ToolBarStyle.link,
     ToolBarStyle.listBullet,
     ToolBarStyle.listOrdered,
+    ToolBarStyle.indentAdd,
+    ToolBarStyle.indentMinus,
     ToolBarStyle.addTable,
     ToolBarStyle.editTable,
-    ToolBarStyle.clean,
+    ToolBarStyle.image,
+    ToolBarStyle.color
   ];
 
   final _toolbarColor = Colors.grey.shade200;
@@ -49,11 +45,11 @@ class _Test2State extends State<Test2> {
 
   @override
   void initState() {
-    controller = QuillEditorController();
-    controller.onTextChanged((text) {
+    widget.controller = QuillEditorController();
+    widget.controller.onTextChanged((text) {
       debugPrint('listening to $text');
     });
-    controller.onEditorLoaded(() {
+    widget.controller.onEditorLoaded(() {
       debugPrint('Editor Loaded :)');
     });
     super.initState();
@@ -61,17 +57,16 @@ class _Test2State extends State<Test2> {
 
   @override
   void dispose() {
-    /// please do not forget to dispose the controller
-    controller.dispose();
+    widget.controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: true,
-      body: Column(
+    return Container(
+      color: Colors.white,
+      height: widget.alto,
+      child: Column(
         children: [
           ToolBar(
             toolBarConfig: customToolBarList,
@@ -80,7 +75,7 @@ class _Test2State extends State<Test2> {
             iconSize: 25,
             iconColor: _toolbarIconColor,
             activeIconColor: Colors.greenAccent.shade400,
-            controller: controller,
+            controller: widget.controller,
             crossAxisAlignment: WrapCrossAlignment.start,
             direction: Axis.horizontal,
             // customButtons: [
@@ -113,9 +108,9 @@ class _Test2State extends State<Test2> {
           ),
           Expanded(
             child: QuillHtmlEditor(
-              text: "<h1>Hello</h1>This is a quill html editor example 😊",
-              hintText: 'Hint text goes here',
-              controller: controller,
+              text: "",
+              hintText: '',
+              controller: widget.controller,
               isEnabled: true,
               ensureVisible: false,
               minHeight: 500,
@@ -153,98 +148,6 @@ class _Test2State extends State<Test2> {
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-        width: double.maxFinite,
-        color: _toolbarColor,
-        padding: const EdgeInsets.all(8),
-        child: Wrap(
-          children: [
-            textButton(
-                text: 'Set Text',
-                onPressed: () {
-                  setHtmlText('This text is set by you 🫵');
-                }),
-            textButton(
-                text: 'Get Text',
-                onPressed: () {
-                  getHtmlText();
-                }),
-            textButton(
-                text: 'Insert Video',
-                onPressed: () {
-                  ////insert
-                  insertVideoURL('https://www.youtube.com/watch?v=4AoFA19gbLo');
-                  insertVideoURL('https://vimeo.com/440421754');
-                  insertVideoURL(
-                      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
-                }),
-            textButton(
-                text: 'Insert Image',
-                onPressed: () {
-                  insertNetworkImage('https://i.imgur.com/0DVAOec.gif');
-                }),
-            textButton(
-                text: 'Insert Index',
-                onPressed: () {
-                  insertHtmlText("This text is set by the insertText method",
-                      index: 10);
-                }),
-            textButton(
-                text: 'Undo',
-                onPressed: () {
-                  controller.undo();
-                }),
-            textButton(
-                text: 'Redo',
-                onPressed: () {
-                  controller.redo();
-                }),
-            textButton(
-                text: 'Clear History',
-                onPressed: () async {
-                  controller.clearHistory();
-                }),
-            textButton(
-                text: 'Clear Editor',
-                onPressed: () {
-                  controller.clear();
-                }),
-            textButton(
-                text: 'Get Delta',
-                onPressed: () async {
-                  var delta = await controller.getDelta();
-                  debugPrint('delta');
-                  debugPrint(jsonEncode(delta));
-                }),
-            textButton(
-                text: 'Set Delta',
-                onPressed: () {
-                  final Map<dynamic, dynamic> deltaMap = {
-                    "ops": [
-                      {
-                        "insert": {
-                          "video":
-                              "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                        }
-                      },
-                      {
-                        "insert": {
-                          "video": "https://www.youtube.com/embed/4AoFA19gbLo"
-                        }
-                      },
-                      {"insert": "Hello"},
-                      {
-                        "attributes": {"header": 1},
-                        "insert": "\n"
-                      },
-                      {"insert": "You just set the Delta text 😊\n"}
-                    ]
-                  };
-                  controller.setDelta(deltaMap);
-                }),
-          ],
-        ),
-      ),
     );
   }
 
@@ -264,39 +167,39 @@ class _Test2State extends State<Test2> {
 
   ///[getHtmlText] to get the html text from editor
   void getHtmlText() async {
-    String? htmlText = await controller.getText();
+    String? htmlText = await widget.controller.getText();
     debugPrint(htmlText);
   }
 
   ///[setHtmlText] to set the html text to editor
   void setHtmlText(String text) async {
-    await controller.setText(text);
+    await widget.controller.setText(text);
   }
 
   ///[insertNetworkImage] to set the html text to editor
   void insertNetworkImage(String url) async {
-    await controller.embedImage(url);
+    await widget.controller.embedImage(url);
   }
 
   ///[insertVideoURL] to set the video url to editor
   ///this method recognises the inserted url and sanitize to make it embeddable url
   ///eg: converts youtube video to embed video, same for vimeo
   void insertVideoURL(String url) async {
-    await controller.embedVideo(url);
+    await widget.controller.embedVideo(url);
   }
 
   /// to set the html text to editor
   /// if index is not set, it will be inserted at the cursor postion
   void insertHtmlText(String text, {int? index}) async {
-    await controller.insertText(text, index: index);
+    await widget.controller.insertText(text, index: index);
   }
 
   /// to clear the editor
-  void clearEditor() => controller.clear();
+  void clearEditor() => widget.controller.clear();
 
   /// to enable/disable the editor
-  void enableEditor(bool enable) => controller.enableEditor(enable);
+  void enableEditor(bool enable) => widget.controller.enableEditor(enable);
 
   /// method to un focus editor
-  void unFocusEditor() => controller.unFocus();
+  void unFocusEditor() => widget.controller.unFocus();
 }

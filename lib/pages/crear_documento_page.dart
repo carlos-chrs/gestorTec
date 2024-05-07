@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart' hide ReorderableList;
 import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
 import 'package:go_router/go_router.dart';
-import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:provider/provider.dart';
+import 'package:quill_html_editor/quill_html_editor.dart';
 import 'package:web_app_tec/models/campo_documento_model.dart';
+import 'package:web_app_tec/pages/test2.dart';
 import 'package:web_app_tec/prividers/content_document_provider.dart';
 import 'package:web_app_tec/singleton/usuario_actual.dart';
 import 'package:web_app_tec/utils/screen_size.dart';
-import 'package:web_app_tec/widgets/html_text_editor.dart';
 import 'package:web_app_tec/widgets/popup_menu.dart';
 import 'package:web_app_tec/widgets/title_bar.dart';
 import 'package:universal_html/html.dart' as html;
@@ -31,6 +31,15 @@ class _CrearDocumentoState extends State<CrearDocumento> {
   late List<CampoDeDocumento> _items;
   _CrearDocumentoState() {
     _items = [
+      CampoDeDocumento(
+        nombreDeCampo: 'num. ofico',
+        formato: "formato",
+        alineacion: Alineacion.derecha,
+        controller: TextEditingController(),
+        medida: Medida.chico,
+        label: "generado automaticamente",
+        key: const Key('Fecha'),
+      ),
       CampoDeDocumento(
         nombreDeCampo: 'Fecha',
         formato: "formato",
@@ -71,7 +80,7 @@ class _CrearDocumentoState extends State<CrearDocumento> {
           nombreDeCampo: 'Cuerpo',
           formato: "formato",
           textoEnriquesido: true,
-          htmlController: HtmlEditorController(),
+          htmlController: QuillEditorController(),
           alineacion: Alineacion.derecha,
           label: "escriba el cuerpo del documento",
           key: const Key('Cuerpo'),
@@ -310,7 +319,7 @@ class Item extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 14.0, horizontal: 14.0),
                     child: data.textoEnriquesido
-                        ? HtmlTextEditor(
+                        ? CustomTextEditor(
                             controller: data.htmlController!,
                             alto: data.lineas * 20,
                           )
