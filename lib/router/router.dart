@@ -28,13 +28,13 @@ getRouter(BuildContext context) {
       GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
-          return login ? const InicioUsuario() : AdminUsersPage();
+          return login ? const InicioUsuario() : LoginPage();
         },
         routes: <RouteBase>[
           GoRoute(
             path: 'login',
             builder: (BuildContext context, GoRouterState state) {
-              return AdminUsersPage();
+              return LoginPage();
             },
           ),
           GoRoute(

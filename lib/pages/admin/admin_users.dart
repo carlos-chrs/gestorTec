@@ -21,7 +21,13 @@ class AdminUsersPage extends StatelessWidget {
               child: ListView.builder(
                 itemCount: 10,
                 itemBuilder: (BuildContext context, int index) {
-                  return ExpansionTile(title: Text('titulo $index'));
+                  return ExpansionTile(
+                    title: Text('titulo $index'),
+                    children: [
+                      Text('contenido $index'),
+                      Text('contenido $index'),
+                    ],
+                  );
                 },
               ),
             ),
