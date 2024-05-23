@@ -11,7 +11,6 @@ class LogOut {
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'accessToken': token}),
     );
-    print(response.statusCode);
     if (response.statusCode == 200) {
       return "success";
     } else if (response.statusCode == 500) {

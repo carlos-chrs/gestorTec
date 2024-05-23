@@ -3,10 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:web_app_tec/main.dart';
 import 'package:web_app_tec/pages/admin/admin_users.dart';
+import 'package:web_app_tec/pages/admin/main_admin_page.dart';
 import 'package:web_app_tec/pages/crear_documento_page.dart';
 import 'package:web_app_tec/pages/editor_test.dart';
 import 'package:web_app_tec/pages/editor_texto_quill.dart';
 import 'package:web_app_tec/pages/inicio_usuario.dart';
+import 'package:web_app_tec/pages/admin/lista_documentos.dart';
 import 'package:web_app_tec/pages/login.dart';
 import 'package:web_app_tec/pages/test2.dart';
 import 'package:web_app_tec/pages/ver_documento_page.dart';
@@ -34,7 +36,7 @@ getRouter(BuildContext context) {
           GoRoute(
             path: 'login',
             builder: (BuildContext context, GoRouterState state) {
-              return LoginPage();
+              return AdminUsersPage();
             },
           ),
           GoRoute(

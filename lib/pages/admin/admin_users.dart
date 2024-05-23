@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:web_app_tec/utils/screen_size.dart';
+import 'package:web_app_tec/widgets/app_expansion_tile.dart';
+import 'package:web_app_tec/widgets/custombuttom.dart';
+import 'package:web_app_tec/widgets/popup_menu.dart';
+import 'package:web_app_tec/widgets/search_bar.dart';
+import 'package:web_app_tec/widgets/title_bar.dart';
 
 class AdminUsersPage extends StatelessWidget {
   const AdminUsersPage({Key? key}) : super(key: key);
@@ -8,28 +14,59 @@ class AdminUsersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenSize.i.upadate(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Administracion de usuarios'),
-      ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text('busqueda de usuarios'),
+            TitleBar(
+                menu: PopupMenu(),
+                nombreUsuario: "nombreUsuario",
+                puesto: "puesto"),
+            Container(
+              alignment: Alignment.center,
+              width: ScreenSize.i.width - 10,
+              height: 80,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Text(
+                          "USUARIOS",
+                          style: TextStyle(
+                            fontSize: ScreenSize.i.width < 600 ? 20 : 28,
+                          ),
+                        ),
+                      ),
+                    ),
+                    CustomSearchBar(
+                      action: () {},
+                      width: ScreenSize.i.width < 600
+                          ? ScreenSize.i.width * 0.4
+                          : 300,
+                      heigth: 50,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 8),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: CustomButtom(
+                        action: () {},
+                        text: 'nuevo',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             SizedBox(
               height: ScreenSize.i.heigth * 70,
               width: ScreenSize.i.heigth * 90,
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (BuildContext context, int index) {
-                  return ExpansionTile(
-                    title: Text('titulo $index'),
-                    children: [
-                      Text('contenido $index'),
-                      Text('contenido $index'),
-                    ],
-                  );
-                },
-              ),
+              child: ExpansionPanelListRadioExample(),
             ),
           ],
         ),
