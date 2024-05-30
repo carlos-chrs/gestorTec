@@ -1,17 +1,19 @@
-import 'package:flutter/material.dart' hide ReorderableList;
-import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import 'package:quill_html_editor/quill_html_editor.dart';
-import 'package:web_app_tec/models/campo_documento_model.dart';
-import 'package:web_app_tec/pages/test2.dart';
-import 'package:web_app_tec/prividers/content_document_provider.dart';
-import 'package:web_app_tec/singleton/usuario_actual.dart';
-import 'package:web_app_tec/utils/screen_size.dart';
-import 'package:web_app_tec/widgets/popup_menu.dart';
-import 'package:web_app_tec/widgets/title_bar.dart';
+import 'package:flutter/material.dart'
+    hide ReorderableList; // Se importa Material y se oculta ReorderableList
+import 'package:flutter_reorderable_list/flutter_reorderable_list.dart'; // Importación para reordenar listas
+import 'package:go_router/go_router.dart'; // Importación para gestionar rutas
+import 'package:provider/provider.dart'; // Importación para el manejo de estado
+import 'package:quill_html_editor/quill_html_editor.dart'; // Importación para un editor de texto enriquecido
+import 'package:web_app_tec/models/campo_documento_model.dart'; // Importación de modelo de campo de documento
+import 'package:web_app_tec/pages/test2.dart'; // Importación de una página de prueba
+import 'package:web_app_tec/prividers/content_document_provider.dart'; // Importación del proveedor de contenido de documento
+import 'package:web_app_tec/singleton/usuario_actual.dart'; // Importación del usuario actual
+import 'package:web_app_tec/utils/screen_size.dart'; // Importación para gestionar el tamaño de pantalla
+import 'package:web_app_tec/widgets/popup_menu.dart'; // Importación de un menú emergente
+import 'package:web_app_tec/widgets/title_bar.dart'; // Importación de la barra de título
 import 'package:universal_html/html.dart' as html;
 
+// Clase para crear documentos (StatefulWidget)
 class CrearDocumento extends StatefulWidget {
   const CrearDocumento({Key? key, required this.title}) : super(key: key);
 
@@ -21,16 +23,20 @@ class CrearDocumento extends StatefulWidget {
   _CrearDocumentoState createState() => _CrearDocumentoState();
 }
 
+// Clase que representa un elemento de la lista de campos de documento
 class ItemData {
   ItemData(this.title, this.key);
   final String title;
   final Key key;
 }
 
+// Estado de la página para crear documentos
 class _CrearDocumentoState extends State<CrearDocumento> {
-  late List<CampoDeDocumento> _items;
+  late List<CampoDeDocumento> _items; //lista de Campos
+  // Constructor de estado
   _CrearDocumentoState() {
     _items = [
+      // campos de documento
       CampoDeDocumento(
         nombreDeCampo: 'num. ofico',
         formato: "formato",
@@ -88,7 +94,8 @@ class _CrearDocumentoState extends State<CrearDocumento> {
           medida: Medida.grande),
     ];
   }
-
+   
+  // Método para obtener el índice de un elemento en la lista según su clave
   // Returns index of item with given key
   int _indexOfKey(Key key) {
     return _items.indexWhere((CampoDeDocumento d) => d.key == key);
@@ -106,16 +113,17 @@ class _CrearDocumentoState extends State<CrearDocumento> {
     });
     return true;
   }
-
+  // Callback para cuando se completa el reordenamiento
   void _reorderDone(Key item) {
     final draggedItem = _items[_indexOfKey(item)];
     debugPrint("Reordering finished for ${draggedItem.nombreDeCampo}}");
   }
-
+   
+    // Método build para construir la interfaz de usuario
   @override
   Widget build(BuildContext context) {
     // _items = context.watch<ContenidoDocumentoProvider>().items;
-    ScreenSize.i.upadate(context);
+    ScreenSize.i.upadate(context); // Actualización del tamaño de pantalla
     return Scaffold(
       body: ReorderableList(
         onReorder: _reorderCallback,
@@ -134,6 +142,7 @@ class _CrearDocumentoState extends State<CrearDocumento> {
                     puesto: UserData().puesto),
               ),
             ),
+                 // Lista de campos de documento
             SliverPadding(
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).padding.bottom),
@@ -153,11 +162,14 @@ class _CrearDocumentoState extends State<CrearDocumento> {
           ],
         ),
       ),
+
+     // Barra de navegación inferior 
       bottomNavigationBar: BottomAppBar(
         height: 85,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Botones de la barra de navegación
             const Spacer(),
             ElevatedButton(
                 child: Column(
@@ -235,6 +247,8 @@ class _CrearDocumentoState extends State<CrearDocumento> {
     );
   }
 
+  // Método para convertir HTML a JSON
+
   Map<String, dynamic> parseHtmlToJson(String htmlString) {
     var document = html.Element.html(htmlString);
     return _parseNodeToJson(document);
@@ -257,7 +271,7 @@ class _CrearDocumentoState extends State<CrearDocumento> {
     return jsonMap;
   }
 }
-
+// Widget para representar un elemento de la lista de campos de documento
 class Item extends StatelessWidget {
   const Item({
     Key? key,
@@ -271,6 +285,7 @@ class Item extends StatelessWidget {
   final bool isLast;
 
   Widget _buildChild(BuildContext context, ReorderableItemState state) {
+    
     BoxDecoration decoration;
 
     if (state == ReorderableItemState.dragProxy ||
@@ -336,6 +351,7 @@ class Item extends StatelessWidget {
     // For android dragging mode, wrap the entire content in DelayedReorderableListener
 
     return content;
+    // Construcción del contenido del elemento
   }
 
   @override
@@ -345,7 +361,7 @@ class Item extends StatelessWidget {
         childBuilder: _buildChild);
   }
 }
-
+// Widget para mostrar un campo de documento con entrada de texto
 class TextInputCampoDeDocumento extends StatelessWidget {
   const TextInputCampoDeDocumento({
     super.key,
